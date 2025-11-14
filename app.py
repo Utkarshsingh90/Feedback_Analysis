@@ -867,4 +867,3 @@ def main():
             st.info("ℹ️ No data available to export. Please process feedback in the first tab.")
 
 if __name__ == "__main__":
-    main()
