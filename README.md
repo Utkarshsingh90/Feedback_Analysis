@@ -106,10 +106,9 @@ ai-feedback-analytics/
 ├── tests/
 └── docs/
 ```
+---
+
 ## 📸 Screenshots
-Below are placeholder entries for all PNG files located in your main project directory:
-
-
 
 ### Feedback Form
 ![Feedback Form](Feedback_form.png)
@@ -130,11 +129,6 @@ Below are placeholder entries for all PNG files located in your main project dir
 
 ## 🔌 API Reference
 Includes `load_models()`, `process_text()`, `extract_simple_entities()`, and `calculate_recognition_score()`.
-
----
-
-## 📸 Screenshots
-(Add your screenshot image paths here)
 
 ---
 
@@ -162,6 +156,7 @@ __pycache__/
 venv/
 .streamlit/
 transformers_cache/
+
 
 
 
