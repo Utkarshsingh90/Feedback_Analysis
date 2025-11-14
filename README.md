@@ -161,13 +161,11 @@ venv/
 .streamlit/
 transformers_cache/
 ```
-## AI Models Working
+## Models Working
 
 
 ### 1. How the AI/ML Models Are Used
-You are using three pre-trained "pipeline" models from Hugging Face Transformers.
-
-
+We are using three pre-trained "pipeline" models from Hugging Face Transformers.
 #### **Sentiment Analysis**
 - **Model:** distilbert-base-uncased-finetuned-sst-2-english
 - **Purpose:** Reads the full feedback and decides whether the sentiment is *positive* or *negative*.
@@ -288,5 +286,6 @@ Your current AI system includes two advanced ML components (sentiment, summariza
 
 ---
 ```
+
 
 
