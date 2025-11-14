@@ -22,10 +22,6 @@ A Streamlit-powered web application that transforms unstructured feedback into a
 - Project Structure
 - API Reference
 - Screenshots
-- Roadmap
-- Contributing
-- License
-- Contact
 
 ---
 
@@ -148,3 +144,4 @@ __pycache__/
 venv/
 .streamlit/
 transformers_cache/
+
