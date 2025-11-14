@@ -107,6 +107,25 @@ ai-feedback-analytics/
 ├── tests/
 └── docs/
 ```
+## 📸 Screenshots
+Below are placeholder entries for all PNG files located in your main project directory:
+
+
+
+### Feedback Form
+![Feedback Form](Feedback_form.png)
+
+### Analysis Results
+![Analysis Results](Analysis_Results.png)
+
+### Dashboard
+![Dashboard](Dashboard.png)
+
+### Export Data Page
+![Export Data](Export_data.png)
+
+### Q&A Chat
+![Q&A Chat](Q&A_chat.png)
 
 ---
 
@@ -144,4 +163,5 @@ __pycache__/
 venv/
 .streamlit/
 transformers_cache/
+
 
