@@ -5,7 +5,6 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-FF4B4B.svg)](https://streamlit.io/)
 [![Transformers](https://img.shields.io/badge/🤗-Transformers-yellow.svg)](https://huggingface.co/transformers/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A Streamlit-powered web application that transforms unstructured feedback into actionable insights using state-of-the-art AI/ML models.
 
@@ -163,5 +162,6 @@ __pycache__/
 venv/
 .streamlit/
 transformers_cache/
+
 
 
