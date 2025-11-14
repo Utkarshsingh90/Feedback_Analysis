@@ -44,7 +44,7 @@ POLICE_DEPARTMENTS = [
 # Page configuration
 st.set_page_config(
     page_title="Feedback Analytics Platform",
-    page_icon="🤖",
+    page_icon="🚔",  # CHANGED: Icon
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -122,7 +122,7 @@ st.markdown("""
     }
     .stTabs [aria-selected="true"] {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #ffffff!important;
+        color: #ffffff!importanter;
         border-color: #667eea;
     }
     .stTextArea textarea {
@@ -364,7 +364,7 @@ def create_pdf_summary(result: Dict) -> BytesIO:
         ['Recognition Score', str(result.get('recognition_score', 'N/A'))],
         ['Sentiment', str(result.get('sentiment_label', 'N/A'))],
         ['Text Length', str(result.get('text_length', 0))],
-        ['Language', result.get('language_name', 'English (en)')]
+        # REMOVED: Language metric
     ]
     metrics_table = Table(metrics_data, colWidths=[3*inch, 3*inch])
     table_style = TableStyle([
@@ -418,10 +418,10 @@ def process_text(text: str, models_tuple) -> Optional[Dict]:
     original_text = text or ""
     detected_lang = detect_language(original_text)
 
-    # Filter for English-only
-    if detected_lang != 'en':
-        st.warning(f"Skipped: This application currently only supports English (detected '{detected_lang}').")
-        return None
+    # REMOVED: English-only filter
+    # if detected_lang != 'en':
+    #     st.warning(f"Skipped: This application currently only supports English (detected '{detected_lang}').")
+    #     return None
 
     processing_text = original_text
 
@@ -444,7 +444,7 @@ def process_text(text: str, models_tuple) -> Optional[Dict]:
         "timestamp": datetime.now().isoformat(),
         "original_text": original_text,
         "detected_language": detected_lang,
-        "language_name": "English",
+        # REMOVED: language_name
         "summary": summary,
         "extracted_districts": entities.get('districts', []),
         "extracted_departments": entities.get('departments', []),
@@ -473,14 +473,14 @@ def answer_question(question: str, context: str, qa_model) -> str:
 
 # Main App
 def main():
-    st.markdown('<h1 class="main-header">🤖 AI Feedback Analytics Platform</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">🚔 AI Feedback Analytics Platform</h1>', unsafe_allow_html=True) # CHANGED: Icon
 
     st.markdown("""
     <div class="info-box">
         <h4>🎯 Welcome to the AI-Powered Feedback Analysis System</h4>
         Analyze public feedback, news articles, and social media posts to extract key insights. 
     </div>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True) # REMOVED: English-only text
 
     # --- REMOVED: Check for 'patterns.jsonl' ---
 
@@ -495,7 +495,7 @@ def main():
 
     # Sidebar
     with st.sidebar:
-        st.image("https://img.icons8.com/fluency/96/000000/robot-3.png", width=100)
+        st.image("https://img.icons8.com/fluency/96/police-badge.png", width=100) # CHANGED: Icon
         st.title("📍 Navigation")
 
         st.markdown("---")
@@ -512,11 +512,9 @@ def main():
                 st.metric("⭐ Avg", "N/A")
 
         st.markdown("---")
-        st.subheader("🌐 Supported Languages")
-        st.info("**English (en).** ")
-
-        # --- REMOVED: EntityRulerset info box ---
-
+        
+        # REMOVED: Supported Languages section
+        
         st.markdown("---")
         col1, col2 = st.columns(2)
         with col1:
@@ -535,7 +533,7 @@ def main():
     with tab1:
         st.header("📝 Process New Feedback")
 
-        col1, col2 = st.columns([1, 2])
+        col1, col2 = st.columns([0.7, 0.3]) # CHANGED: Ratio 70:30
 
         with col1:
             input_method = st.radio(
@@ -549,7 +547,7 @@ def main():
             if input_method == "✍️ Text Input":
                 text_to_process = st.text_area(
                     "Enter feedback, article, or document:",
-                    height=250,
+                    height=350, # CHANGED: Made text area taller
                     placeholder="Example:\nThe Traffic Police in Cuttack were very professional...\n",
                     key="main_text_input"
                 )
@@ -586,13 +584,8 @@ def main():
                             st.text_area("Content:", text_to_process[:500] + ("..." if len(text_to_process) > 500 else ""), height=150, key="preview", disabled=True)
 
         with col2:
-            st.markdown("""
-            <div class="info-box">
-                <h4>🌍 Language</h4>
-                • English
-            </div>
-            """, unsafe_allow_html=True)
-
+            # REMOVED: Language box
+            
             st.markdown("""
             <div class="success-box">
                 <h4>✨ AI Features</h4>
@@ -608,7 +601,7 @@ def main():
 
         if st.button("🚀 Analyze Feedback", type="primary", use_container_width=True):
             if text_to_process and text_to_process.strip():
-                with st.spinner("🔍 Analyzing text..."):
+                with st.spinner("🔍 Analyzing text..."): # Text is now generic
                     try:
                         result = process_text(text_to_process, models)
                         if result:
@@ -706,7 +699,7 @@ def main():
                                     use_container_width=True
                                 )
                         else:
-                            st.info("No result returned (likely non-English).")
+                            st.info("No result returned. The text might be too short or in an unsupported language.")
                     except Exception as e:
                         st.error(f"❌ An error occurred during processing: {str(e)}")
             else:
