@@ -9,7 +9,6 @@
 A Streamlit-powered web application that transforms unstructured feedback into actionable insights using state-of-the-art AI/ML models.
 
 ---
-
 ## 📋 Table of Contents
 - Overview
 - Features
@@ -21,6 +20,8 @@ A Streamlit-powered web application that transforms unstructured feedback into a
 - Project Structure
 - API Reference
 - Screenshots
+- Model Working
+- Future Improvements
 
 ---
 
@@ -156,7 +157,132 @@ __pycache__/
 venv/
 .streamlit/
 transformers_cache/
+```
+## AI Models Working
 
 
+### 1. How the AI/ML Models Are Used
+You are using three pre-trained "pipeline" models from Hugging Face Transformers.
 
+
+#### **Sentiment Analysis**
+- **Model:** distilbert-base-uncased-finetuned-sst-2-english
+- **Purpose:** Reads the full feedback and decides whether the sentiment is *positive* or *negative*.
+- **Used for:**
+- Showing the sentiment emoji (😊 or 😞)
+- Calculating the **Recognition Score** (positive → higher score)
+
+
+#### **Summarization**
+- **Model:** facebook/bart-large-cnn
+- **Purpose:** Reads the complete text and generates a shorter paragraph capturing the key points.
+- **Used for:**
+- The **Summary** box in the "View Details" section
+- Preview summaries in the **Dashboard** tab
+
+
+#### **Question-Answering (Q&A)**
+- **Model:** deepset/roberta-base-squad2
+- **Purpose:** Powers the **Q&A Chat** tab by answering user questions based on all collected feedback.
+- **Inputs:**
+- A question from the user
+- A combined context made from all processed feedback
+- **Process:** Extracts the exact span of text from the context that answers the question.
+
+
+---
+
+
+### 2. How They Work (Simple Explanation)
+
+
+#### **Sentiment Analysis (DistilBERT)**
+A text classifier trained on thousands of reviews. It learned patterns like:
+- "excellent", "appreciated", "helpful" → Positive
+- "poor", "rude", "disappointed" → Negative
+
+
+It reads your entire feedback and predicts which label fits best.
+
+
+#### **Summarization (BART)**
+A sequence-to-sequence model with two components:
+- **Encoder:** Reads and understands your full text
+- **Decoder:** Generates a brand-new shorter version, word by word
+
+
+Works like a smart journalist who rewrites long paragraphs into concise summaries.
+
+
+#### **Question-Answering (RoBERTa)**
+An extractive model — it doesn’t invent answers. Instead, it:
+- Looks at the question
+- Searches the context
+- Highlights the exact words that answer the question
+```
+```
+## 🔮 Future Improvements
+Your current AI system includes two advanced ML components (sentiment, summarization, Q&A) and several simple keyword-based components (districts, departments, competencies). The most impactful upgrades come from improving the latter.
+
+
+### **1. Use Zero‑Shot Classification for Competency Tags**
+**Problem:** `extract_competency_tags()` only finds tags if exact keywords appear in text. It misses cases like:
+> "The officer was kind and understanding" → should match **compassion**, but keyword isn't present.
+
+
+**Solution:** Use a **Zero‑Shot Classification** model.
+- This model understands the *meaning* of text and labels, even without exact keywords.
+- Provide feedback + your labels:
+- `bravery`, `professionalism`, `compassion`, `life saving`, `rapid response`, etc.
+- Model returns the best‑matching competencies with confidence scores.
+
+
+**Benefit:** Much smarter, semantic tag extraction.
+
+
+---
+
+
+### **2. Use a Named Entity Recognition (NER) Model for Districts, Departments & Officer Names**
+**Problem:** `extract_simple_entities()` depends on fixed keyword lists.
+- Cannot detect new department names.
+- Cannot detect officer names (e.g., *“Constable Das”*).
+
+
+**Solution:** Add a pre-trained **NER** pipeline.
+- Identifies `PERSON`, `ORG`, and `LOCATION` entities.
+- Extracts:
+- Police officer names
+- Station/department names
+- Districts and localities
+
+
+**Benefit:** More accurate and expandable entity extraction.
+
+
+---
+
+
+### **3. Implement RAG (Retrieval‑Augmented Generation) for Smart Q&A**
+**Problem:** Current Q&A loads *all feedback text* into a single context.
+- Slow
+- Breaks with large datasets (token limit)
+- Not scalable
+
+
+**Solution:** Use **RAG architecture**:
+1. Store each feedback entry as a **vector embedding**.
+2. Use a vector database (FAISS, Chroma, Pinecone).
+3. When user asks a question:
+- Retrieve top 3–5 most relevant feedback entries.
+4. Feed only those into the Q&A model.
+
+
+**Benefit:**
+- Faster Q&A
+- More accurate answers
+- Scales to thousands or millions of entries
+
+---
+```
 
