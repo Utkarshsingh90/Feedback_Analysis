@@ -8,6 +8,9 @@
 
 A Streamlit-powered web application that transforms unstructured feedback into actionable insights using state-of-the-art AI/ML models.
 
+## Model Link
+https://feedbackanalysis-kphosvhshtsnckpxsmgffh.streamlit.app/
+
 ---
 ## 📋 Table of Contents
 - Overview
@@ -285,4 +288,5 @@ Your current AI system includes two advanced ML components (sentiment, summariza
 
 ---
 ```
+
 
