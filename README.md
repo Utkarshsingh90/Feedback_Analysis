@@ -104,11 +104,8 @@ ai-feedback-analytics/
 ├── app.py
 ├── requirements.txt
 ├── README.md
-├── LICENSE
-├── assets/
-├── data/
-├── tests/
-└── docs/
+├── Screenshots
+
 ```
 ---
 
@@ -286,6 +283,7 @@ Your current AI system includes two advanced ML components (sentiment, summariza
 
 ---
 ```
+
 
 
 
